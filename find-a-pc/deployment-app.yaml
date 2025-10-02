@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: find-a-pc-app
+spec:
+  selector:
+    matchLabels:
+      app: find-a-pc-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: find-a-pc-app
+    spec:
+      containers:
+      - name: pc-avail-app
+        image: itsist/find-a-pc-app:latest
+        ports:
+        - containerPort: 3000
