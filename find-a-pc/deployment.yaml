@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: find-a-pc
+spec:
+  selector:
+    matchLabels:
+      app: find-a-pc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: find-a-pc
+    spec:
+      containers:
+      - name: pc-avail-app
+        image: itsist/find-a-pc-app:latest
+        ports:
+        - containerPort: 3000
+      - name: pc-avail-database
+        image: itsist/find-a-pc-db:latest
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: uos-2022
+          - name: MYSQL_DATABASE
+            value: dev_database
+          - name: MYSQL_USER
+            value: dev_password
+        ports:
+          - containerPort: 3306

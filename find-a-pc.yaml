@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: find-a-pc
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/SwaggaRitz/argocd-playground.git
+    targetRevision: HEAD
+    path: find-a-pc
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: find-a-pc
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
